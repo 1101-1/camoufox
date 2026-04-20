@@ -47,7 +47,7 @@ jobs:
         run: make fetch
       - name: Setup and bootstrap
         run: |
-          make setup-minimal
+          make setup
           make mozbootstrap
           mkdir -p dist
       - name: Create swap space
