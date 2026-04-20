@@ -4,6 +4,13 @@
 
 #pragma once
 
+#ifdef _WIN32
+#ifndef _PID_T_DEFINED
+typedef int pid_t;
+#define _PID_T_DEFINED
+#endif
+#endif
+
 #include <memory>
 #include <set>
 #include "api/video/video_frame.h"
