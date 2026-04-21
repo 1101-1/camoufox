@@ -65,6 +65,8 @@ jobs:
           mkdir -p dist
       - name: Create missing manifest
         run: |
+          cd camoufox-146.0.1-beta.25
+          mkdir -p browser/app
           cat > browser/app/camoufox.exe.manifest << 'EOF'
           <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
           <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
