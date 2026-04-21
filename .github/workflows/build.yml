@@ -63,11 +63,24 @@ jobs:
           make setup
           make mozbootstrap
           mkdir -p dist
-      - name: Fix missing manifest
+      - name: Create missing manifest
         run: |
-          if [ ! -f browser/app/camoufox.exe.manifest ]; then
-            cp browser/app/firefox.exe.manifest browser/app/camoufox.exe.manifest
-          fi
+          cat > browser/app/camoufox.exe.manifest << 'EOF'
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+            <assemblyIdentity version="1.0.0.0"
+              processorArchitecture="*"
+              name="camoufox.exe"
+              type="win32"/>
+            <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+              <security>
+                <requestedPrivileges>
+                  <requestedExecutionLevel level="asInvoker" uiAccess="false"/>
+                </requestedPrivileges>
+              </security>
+            </trustInfo>
+          </assembly>
+          EOF
       - name: Create swap space
         run: |
           sudo fallocate -l 16G /swapfile
