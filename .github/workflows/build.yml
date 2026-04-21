@@ -63,6 +63,11 @@ jobs:
           make setup
           make mozbootstrap
           mkdir -p dist
+      - name: Fix missing manifest
+        run: |
+          if [ ! -f browser/app/camoufox.exe.manifest ]; then
+            cp browser/app/firefox.exe.manifest browser/app/camoufox.exe.manifest
+          fi
       - name: Create swap space
         run: |
           sudo fallocate -l 16G /swapfile
