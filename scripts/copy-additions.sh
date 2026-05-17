@@ -29,6 +29,9 @@ run 'mkdir -p services/settings/dumps/main'
 # Copy the search-config.json file
 run 'cp -v ../assets/search-config.json services/settings/dumps/main/search-config.json'
 
+# Create build/vs directory before copying pack_vs.py
+run 'mkdir -p build/vs'
+
 # vs_pack.py issue... should be temporary
 run 'cp -v ../patches/librewolf/pack_vs.py build/vs/'
 
