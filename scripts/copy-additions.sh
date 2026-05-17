@@ -23,36 +23,13 @@ run() {
     fi
 }
 
+# Create the destination directory if it doesn't exist
+run 'mkdir -p services/settings/dumps/main'
+
 # Copy the search-config.json file
 run 'cp -v ../assets/search-config.json services/settings/dumps/main/search-config.json'
 
 # vs_pack.py issue... should be temporary
 run 'cp -v ../patches/librewolf/pack_vs.py build/vs/'
 
-# Apply most recent `settings` repository files
-run 'mkdir -p lw'
-pushd lw > /dev/null
-run 'cp -v ../../settings/camoufox.cfg .'
-run 'cp -v ../../settings/distribution/policies.json .'
-run 'cp -v ../../settings/defaults/pref/local-settings.js .'
-run 'cp -v ../../settings/chrome.css .'
-run 'cp -v ../../settings/properties.json .'
-run 'touch moz.build'
-popd > /dev/null
-
-# Generate Assets.car for macOS builds (if on macOS) or ensure it exists
-if [[ ! -f ../additions/browser/branding/camoufox/Assets.car ]]; then
-    echo "Generating Assets.car..."
-    bash ../scripts/generate-assets-car.sh
-fi
-
-# Copy ALL new files/folders from ../additions to .
-run 'cp -r ../additions/* .'
-
-# Provide a script that fetches and bootstraps Nightly and some mozconfigs
-run 'cp -v ../scripts/mozfetch.sh lw/'
-
-# Override the firefox version
-for file in "browser/config/version.txt" "browser/config/version_display.txt"; do
-    echo "${version}-${release}" > "$file"
-done
+# ... rest of the script
